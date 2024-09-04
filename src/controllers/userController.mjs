@@ -75,28 +75,10 @@ const deleteUser = async (req, res, next) => {
 // Função para obter todos os usuários
 const getUsers = async (req, res, next) => {
   try {
-    // Busca todos os usuários no banco de dados
-    const users = await User.find();
+    const users = await User.find().select("-password"); // Exclui a senha da resposta
 
-    // Mapeia os usuários, gerando um token para cada um
-    const usersWithTokens = users.map((user) => {
-      // Gera um token com base no ID do usuário
-      const token = generateToken(user._id);
-
-      // Remove a senha antes de retornar os dados
-      user.password = undefined;
-
-      // Retorna o usuário junto com o token
-      return {
-        user,
-        token,
-      };
-    });
-
-    // Retorna a lista de usuários com tokens
-    return res.status(200).json(usersWithTokens);
+    return res.status(200).json(users); // Retorna apenas os dados dos usuários
   } catch (err) {
-    // Em caso de erro, retorna uma mensagem de erro detalhada
     return res
       .status(500)
       .json({ msg: `Erro ao obter os usuários: ${err.message}` });
