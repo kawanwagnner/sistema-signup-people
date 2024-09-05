@@ -6,7 +6,6 @@ import {
   update,
   getUserProfile, // Adicionando a importação para getUserProfile
 } from "../Controllers/userController.mjs"; // Corrigido para o diretório correto
-// import { authMiddleware } from "../middleware/token_auth.mjs";
 
 const userRouter = Router();
 

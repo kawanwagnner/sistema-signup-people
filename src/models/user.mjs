@@ -11,27 +11,18 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    email: {
+    endereco: {
       type: String,
       required: true,
     },
-    password: {
+    quantidade: {
       type: String,
       required: true,
-    },
-    avatar: {
-      type: String,
     },
     createdAt: {
       type: Date,
       default: Date.now(),
     },
-    // posts: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "Post",
-    //   },
-    // ],
   },
   {
     timestamps: true,

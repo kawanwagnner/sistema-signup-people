@@ -23,23 +23,18 @@ const update = async (req, res, next) => {
     }
 
     // Atualiza os campos do usuário com os valores fornecidos
-    const { name, payOrNot, email, password } = req.body;
+    const { name, payOrNot, endereco, quantidade } = req.body;
 
     if (name) user.name = name;
     if (payOrNot) user.payOrNot = payOrNot;
-    if (email) user.email = email;
-
-    // Se a senha for fornecida, criptografa antes de salvar
-    if (password) {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      user.password = hashedPassword;
-    }
+    if (endereco) user.endereco = endereco;
+    if (quantidade) user.quantidade = quantidade;
 
     // Salva as alterações no banco de dados
     const updatedUser = await user.save();
 
     // Remove informações sensíveis do usuário antes de enviar a resposta
-    updatedUser.password = undefined;
+    // Nenhuma senha para remover, já que não estamos lidando com ela
 
     // Retorna o perfil atualizado do usuário com uma mensagem de sucesso
     return res
