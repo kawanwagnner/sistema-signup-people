@@ -5,7 +5,7 @@ import {
   deleteUser,
   update,
   getUserProfile, // Adicionando a importação para getUserProfile
-} from "../Controllers/userController.mjs"; // Corrigido para o diretório correto
+} from "../controllers/userController.mjs"; // Corrigido para o diretório correto
 
 const userRouter = Router();
 

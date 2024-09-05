@@ -1,6 +1,6 @@
 // routes.js
 import express from "express";
-import { signIn, signUp } from "../Controllers/authController.mjs";
+import { signIn, signUp } from "../controllers/authController.mjs";
 
 const authRouter = express.Router();
 

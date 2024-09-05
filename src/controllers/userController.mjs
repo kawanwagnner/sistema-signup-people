@@ -1,6 +1,5 @@
 // controllers/userController.mjs
 import { generateToken } from "../middleware/token_auth.mjs";
-import bcrypt from "bcrypt";
 import User from "../models/user.mjs";
 
 // Função para atualizar o perfil do usuário
