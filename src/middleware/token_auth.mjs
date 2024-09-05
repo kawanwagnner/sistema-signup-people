@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 const generateToken = (userId) => {
-  const token = jwt.sign({ userId }, "bomdia", { expiresIn: "24h" });
+  const token = jwt.sign({ userId }, "bomdia");
   return token;
 };
 
