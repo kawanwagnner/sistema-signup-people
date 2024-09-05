@@ -3,30 +3,37 @@ import User from "../models/user.mjs";
 import { generateToken } from "../middleware/token_auth.mjs";
 
 const signIn = async (req, res) => {
-  const { email, password } = req.body;
+  const { user, pass } = req.body;
+
+  // Validar se os campos user e pass estão presentes
+  if (!user || !pass) {
+    return res
+      .status(400)
+      .json({ msg: "Por favor, preencha todos os campos." });
+  }
 
   try {
-    // Verificar se o usuário existe com o e-mail fornecido
-    const user = await User.findOne({ email });
+    // Verificar se o usuário existe com o nome de usuário fornecido
+    const foundUser = await User.findOne({ user });
 
-    // Se o usuário não existe, retornar uma mensagem de erro
-    if (!user) {
-      return res.status(404).json({ msg: "Usuário não encontrado." });
+    // Se o usuário não existir, retornar uma mensagem de erro
+    if (!foundUser) {
+      return res.status(404).json({ msg: "Credenciais inválidas." });
     }
 
     // Verificar se a senha fornecida corresponde à senha armazenada no banco de dados
-    if (password !== user.password) {
+    if (pass.trim() !== foundUser.pass.trim()) {
       return res.status(401).json({ msg: "Credenciais inválidas." });
     }
 
     // Se as credenciais estiverem corretas, gerar um novo token de autenticação
-    const token = generateToken(user._id);
+    const token = generateToken(foundUser._id);
 
     // Remover a senha do usuário das informações retornadas
-    user.password = undefined;
+    foundUser.pass = undefined;
 
     // Retornar as informações do usuário junto com o token de autenticação
-    return res.status(200).json({ user, token });
+    return res.status(200).json({ user: foundUser, token });
   } catch (error) {
     // Se ocorrer um erro, retornar uma resposta de erro 500 com detalhes do erro
     return res.status(500).json({ status: "error", error: error.message });
