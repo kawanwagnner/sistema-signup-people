@@ -18,12 +18,16 @@ const signIn = async (req, res) => {
 
     // Se o usuário não existir, retornar uma mensagem de erro
     if (!foundUser) {
-      return res.status(404).json({ msg: "Credenciais inválidas." });
+      return res
+        .status(404)
+        .json({ msg: "Credenciais inválidas - Verifique seu Usuário." });
     }
 
     // Verificar se a senha fornecida corresponde à senha armazenada no banco de dados
     if (pass.trim() !== foundUser.pass.trim()) {
-      return res.status(401).json({ msg: "Credenciais inválidas." });
+      return res
+        .status(401)
+        .json({ msg: "Credenciais inválidas - Verifique sua Chave Mestre." });
     }
 
     // Se as credenciais estiverem corretas, gerar um novo token de autenticação
